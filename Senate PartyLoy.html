@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Senate Party Loyalty</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.0/font/css/open-iconic-bootstrap.min.css" />
+</head>
+
+<body class="container">
+  <header class="row">
+    <div class="col-9">
+      <img width="500" height="150" src="LOGOTGIF.jpg" alt="LOGO">
+    </div>
+    <div class="col-3 d-flex align-content-center flex-wrap">
+      <a href="info@tgif.net"><span class="oi oi-envelope-closed"></span> info@tgif.net </a>
+    </div>
+  </header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mt-4">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li>
+          <a class="nav-link" href="home page.html">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle nav-item" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Congress 113
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="house-data.html">House</a>
+            <a class="dropdown-item" href="senate-data.html">Senate</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle nav-item" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Attendance
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="House Attendance.html">House</a>
+            <a class="dropdown-item" href="Senate Attendance.html">Senate</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle nav-item active" href="#" id="navbarDropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Party Loyelty
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="House PartyLoy.html">House</a>
+            <a class="dropdown-item" href="Senate PartyLoy.html">Senate</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div id="app">
+    <section class="row">
+      <div class="col-7 mt-2">
+        <h2 style="font-family:Arial, Helvetica, sans-serif;">Party Loyalty</h2>
+        <p style="font-family:Arial, Helvetica, sans-serif;">Those who consider themselves to be strong partisans,
+          strong
+          Democrats and strong Republicans respectively, tend to be the most faithful in voting for their party's
+          nominee
+          for office and legislation that backs their party's agenda.</p>
+      </div>
+      <div class="col-5 mt-4">
+        <div class="table-responsive">
+          <h2 class="float-right">Senate at a glance</h2>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Party</th>
+                <th>No. of Reps</th>
+                <th>% Voted w/Party</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Democrats</td>
+                <td>{{statistic.partys[0].members.length}}</td>
+                <td>{{statistic.partys[0].percentvotesWparty}}</td>
+              </tr>
+              <tr>
+                <td>Republicans</td>
+                <td>{{statistic.partys[1].members.length}}</td>
+                <td>{{statistic.partys[1].percentvotesWparty}}</td>
+              </tr>
+              <tr>
+                <td>Independents</td>
+                <td>{{statistic.partys[2].members.length}}</td>
+                <td>{{statistic.partys[2].percentvotesWparty}}</td>
+              </tr>
+              <tr>
+                <td>Total</td>
+                <td>{{statistic.totalmembers}}</td>
+                <td>{{statistic.totalprompercent}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="row">
+      <div class="col-6 mt-2">
+        <div class="table-responsive">
+          <h3 class="float-left">Least Loyal (Bottom 10% of Party)</h3>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>No. of Party Votes</th>
+                <th>% Party Votes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="member in statistic.leastLoyal">
+                <td><a v-bind:href="member.url">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a>
+                </td>
+                <td>{{member.total_votes}} </td>
+                <td>{{member.votes_with_party_pct}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-6 mt-2">
+        <div class="table-responsive">
+          <h3 class="float-right">Most Loyal (Top 10% of Party)</h3>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>No. of Party Votes</th>
+                <th>% Party Votes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="member in statistic.mostLoyal">
+                <td><a v-bind:href="member.url">{{member.first_name}} {{member.middle_name}} {{member.last_name}}</a>
+                </td>
+                <td>{{member.total_votes}} </td>
+                <td>{{member.votes_with_party_pct}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+  <footer class="row">
+    <div class="container m-3 bg-light border border-secondary">
+      <p style="font-family:Arial, Helvetica, sans-serif;" class="text-center m-3">
+        @ 2016 TGIF | All Rights Reserved
+      </p>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script> var opc = "senate" </script>
+  <script src="statistic.js"></script>
+</body>
+
+</html>
